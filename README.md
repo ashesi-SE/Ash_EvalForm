@@ -39,6 +39,7 @@ Getting Started
 Dependencies:
 
 AngularJs
+
 NodeJs
 
 ================
