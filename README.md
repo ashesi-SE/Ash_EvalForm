@@ -32,7 +32,7 @@ Hanif Abudulai -- Program management/Interaction design
 
 Kirk Amoah -- Architect and Software Design Engineer
 
-Johnny Allotey -- Architect and Software Design Engineer
+John Allotey -- Architect and Software Design Engineer
 
 Getting Started
 ===============
@@ -46,8 +46,9 @@ To clone our project, type git clone
 https://github.com/ashesi-SE/Ash_EvalForm.git
 
 To check out our architecture sheet, click here
-
+https://github.com/ashesi-SE/Ash_EvalForm/wiki/ARCHITECTURE
 
 Wiki
 ===
 Check out our wiki to find out more about our project 
+https://github.com/ashesi-SE/Ash_EvalForm/wiki
