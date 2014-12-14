@@ -47,8 +47,10 @@ Getting Started
 Dependencies:
 
 AngularJs
+MySQL
+PHP
+HTML/CSS (Bootstrap)
 
-NodeJs
 
 ================
 To clone our project, type git clone 
