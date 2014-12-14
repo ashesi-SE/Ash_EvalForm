@@ -14,12 +14,20 @@ Teams are only able to briefly review their feedback before results are tabulate
 Lecturers or faculty interns have to manually tabulate and find the average of the results.
 Evaluators have to assess teams manually and as a result there is a lot of paper generated.
 
+Scenario
+========
+Felix Yeboah is a student in the Entrepreneurship class who has had a midsem presentation with his group on their business model. Unfortunately, he and his group members are not able to get feedback on their presentation on time. This results in them not making improvements to their project.
+
+Kofi Ansah is a Faculty Intern for the Entrepreneurship class who acts as an evaluator during team presentations. He uses paper evaluation forms to evaluate and tabulate grades for the teams. This is time consuming and prone to human error. 
+
+Todd Warren is a lecturer for the Entrepreneurship class who would manually sets questions for evaluation forms when teams do their presentations. The use of paper evaluation forms to evaluate teams can be cumbersome hence he wants a central place to store information. 
+
 Payoff
 ======
 The virtual evaluation form allows:
 Students to view their evaluation sheet conveniently.
 Evaluators to have their ratings collated automatically by the system for teams.
-Evaluators to assess teams either electronically or manually.
+Evaluators to assess teams either electronically.
 Faculty interns to have a simple way to generate a spreadsheet based on team criteria.
 
 Team Members
