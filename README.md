@@ -54,7 +54,7 @@ HTML/CSS (Bootstrap)
 
 ================
 To clone our project, type git clone 
-https://github.com/ashesi-SE/Ash_EvalForm.git
+https://github.com/ashesi-SE/Ash_EvalForm/tree/main
 
 To check out our architecture sheet, click here
 https://github.com/ashesi-SE/Ash_EvalForm/wiki/ARCHITECTURE
