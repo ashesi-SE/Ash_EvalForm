@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<?php
+	$msg="Enter Login Details";
+	if(isset($_REQUEST['username'])){
+	    //the login form has been submitted
+	  $username=$_REQUEST['username'];
+	  $password=$_REQUEST['password'];
+	    //call login to check username and password
+	  if(login($username,$password)){
+	      session_start();  //initiate session for the current login
+	      loadUserProfile($username); //load user information into the session
+	      header("location: ind.html");  //redirect to home page
+	      exit();
+	    }elseif(!login($username,$password)){
+	      //if login returns false, then something is worng
+	      $msg="Your Login Name or Password is invalid";
+	      
+	    }
+	    else{
+	      $msg="Enter Login Details";
+	    }
+	  }
+ ?>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sign In</title>
+	<!-- Bootstrap Core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/custom.css" rel="stylesheet">
+     <!-- Custom Fonts -->
+    <link href="assets/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class="container">
+    <div class="row vertical-offset-100">
+    	<div class="col-md-4 col-md-offset-4">
+    		<!-- <img src = "assets/img/Ashesi_Logo_Black_1.png" alt = "Ashesi Logo" align = "center"></img> -->
+    		<div class="panel panel-default">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title" align="center">Virtual Evaluation Form : Please Sign In</h3>
+			 	</div>
+			  	<div class="panel-body">
+			    	<form action="login.php" method="POST">
+                    <fieldset>
+			    	  	<div class="form-group">
+			    		    <input class="form-control" placeholder="Username" name="username" type="text">
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
+			    		</div>
+			    		<div class="form-group" align="center">
+			    			Don't have an account? <a href="SignUp.php">Sign Up Here</a></td>
+			    		</div>
+			    		<input class="btn btn-lg btn-success btn-block" type="submit" name = "submit" value="Login">
+			    		<div class="message" id="error" align="center">
+			    			<?php if($msg!="") { echo $msg; } ?>
+			    		</div>
+			    	</fieldset>
+			      	</form>
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+  $(document).mousemove(function(e){
+     TweenLite.to($('body'), 
+        .5, 
+        { css: 
+            {
+                backgroundPosition: ""+ parseInt(event.pageX/8) + "px "+parseInt(event.pageY/'12')+"px, "+parseInt(event.pageX/'15')+"px "+parseInt(event.pageY/'15')+"px, "+parseInt(event.pageX/'30')+"px "+parseInt(event.pageY/'30')+"px"
+            }
+        });
+  });
+});
+</script>
+</body>
+</html>
+
+<?php
+    function login($username, $password){
+
+  $database="virtual-form";  //this database has to exist. 
+  $user="root";   //the main admin user of mysql
+  $passwor="";      //use root password of mysql
+  $server="localhost";  //name of the server
+  
+  $link=mysql_connect($server,$user,$passwor);
+  //if result is false, the connection did not open
+  if(!$link){ 
+    echo "Failed to connect to mysql.";
+    //display error message from mysql
+    echo mysql_error(); 
+    exit();   //end script
+    echo "failed";
+  }
+  //select the database to work with using the open connection 
+  if(!mysql_select_db($database,$link)){
+    echo "Failed to select database.";
+    //display error message from mysql
+    echo mysql_error(); 
+    exit(); 
+    return false;
+  }
+
+  $dataset = mysql_query("select * from login where username='$username' and password = '$password'", $link);
+  $result = mysql_fetch_assoc($dataset);
+  
+  if($result)
+    return true;
+  else{
+    return false;
+    echo mysql_error();
+    exit();
+  }
+  
+}
+
+function loadUserProfile($username){
+    //load username and other informaiton into the session 
+    //the user informaiton comes from the database
+  $_SESSION["username"]=$username;
+}
+?>
