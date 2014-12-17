@@ -43,8 +43,8 @@
                 </div> -->
                 <div class="container-fluid" ng-controller="DynamicControls">
                     <!-- go through each element of questions, painting appropriate control --> 
-                    <h2>Course Evaluation</h2>
-                    <div ng-repeat="q in questions" class="col-lg-8">
+                    <h2>Course Evaluation Form</h2>
+                    <div ng-repeat="q in questions.questions" class="col-lg-8">
 
                         <div ng-switch="q.type" >
                             <!-- based on type display the appropriate control-->                
@@ -131,11 +131,15 @@
 
 
 var app = angular.module('myApp',[ 'ngRoute']);
-app.controller('DynamicControls',['$scope', '$http', function($scope, $http){
-    var course_id = <?php echo $cid; ?>;
-    var url = "action_page.php?cid="+course_id;
 
-    $http.get(url).success(function(response){$scope.questions = response;});
+app.controller('DynamicControls',['$scope', '$http', function($scope, info){
+    // var course_id = <?php echo $cid; ?>;
+    // var url = "action_page.php?cid="+course_id;
+
+    // $http.get(url).success(function(response){$scope.questions = response;});
+
+    $scope.questions = info.getQuestions();
+    $scope.teams = info.getTeams();
 
     // var url2 = "action_page.php?courseid="+cid;
     // $http.get(url2).success(function(result){$scope.teams} = result;});
@@ -152,14 +156,28 @@ app.controller('DynamicControls',['$scope', '$http', function($scope, $http){
         // ];
     }
     ]);
-
-app.controller('MetaData',['$scope', '$http', function($scope, $http){
+app.factory('info', function($http, $q){
     var course_id = <?php echo $cid; ?>;
-    var url = "action_page.php?courseid="+course_id;
 
-    $http.get(url).success(function(response){$scope.teams = response;});
+    return{
+        getQuestions: function(){
+            var promises = [];
+            var url = "action_page.php?cid="+course_id;
+            promises.push($http.get(url).success(function(response){$scope.questions = response;}));
 
-}]);
+            return $q.all(promises);
+
+        },
+        getTeams: function(){
+            var promises = [];
+            var url = "action_page.php?courseid="+course_id;
+            promises.push($http.get(url).success(function(response){$scope.teams = response;}));
+        
+            return $q.all(promises);
+        }
+})
+
+
 //angular.module('myApp', [ 'ngRoute']).controller('DynamicControls', ['$scope', function($scope){
 /*
 questions is an array of the controls to be created.  type is which part of the ng-switch statement it uses; and name is the name of the control.  prompt is what the label should be, and answer is the default answer.   The answer property contains what the question was bound to after typing

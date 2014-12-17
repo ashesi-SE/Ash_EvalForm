@@ -57,9 +57,6 @@
                     <li>
                         <a href="new_course.php"><i class="fa fa-fw fa-table"></i> Add New Course</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -100,14 +97,14 @@
                             </thead>
                             <tbody ng-repeat="x in courses.courses">
                              	<tr>
-                                	<td>{{x.name}} {{x.questions_set}}</td>
+                                	<td>{{x.name}}</td>
                                     <td>{{x.num_of_teams}} <a href="teams.php?courseid={{x.id}}&num_teams={{x.num_of_teams}}"> : Edit Teams</a></td>
                                     <td>{{x.semester}} / {{x.year}}</td>
                                     <td>
-                                    	<a data-toggle="modal" data-id="{{x.id}}" data-course="{{x.name}}" class="open-NumQuestionsDialog" data-target="#numQuestionsDialog">Evaluation Form</a>
+                                    	<a data-toggle="modal" data-id="{{x.id}}" data-course="{{x.name}}" class="open-NumQuestionsDialog" data-target="#numQuestionsDialog">Create Evaluation Form</a>
                                     </td>
-                                    <td ng-if="x.questions_set == 1">
-                                        <a href="evaluationform.php?cid={{x.id}}"> Preview Questions {{x.questions_set}}</a>
+                                    <td ng-if = "x.questionsset == '0'">
+                                        <a href="evaluationform.php?cid={{x.id}}"> Preview Questions</a>
                                     </td>
                                         
                                     <td>

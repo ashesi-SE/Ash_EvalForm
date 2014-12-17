@@ -164,6 +164,7 @@
             var url = "action_page.php?course&course_name="+course_name+"&course_number="+course_number+"&fi_email="+fi_email+"&semester="+semester+"&year="+year+"&description="+description+"&num_teams="+num_teams;
             //alert(url);
             syncAjax(url);
+            window.location = "home.php";
         }
 
         function syncAjax(u){
@@ -174,6 +175,7 @@
                     //alert(response);
                     window.location = "home.php";
                 }
+
             });
         }
         

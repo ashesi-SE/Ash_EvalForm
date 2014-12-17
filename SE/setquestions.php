@@ -115,6 +115,7 @@
                                 <label>Question Type</label>
                                 <select class="form-control" name="questionType<?php echo $x;?>">
                                     <option value="rating">Rating</option>
+                                    <option value="ratingcomment">Rating With Comment</option>
                                     <option value="comment">Comment</option>
                                     <option value="yes_no">Yes/No</option>
                                 </select>

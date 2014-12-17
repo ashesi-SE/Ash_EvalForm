@@ -27,6 +27,9 @@
 	elseif(isset($_REQUEST["delete_id"])){
 		deleteCourse();
 	}
+	elseif(isset($_REQUEST["courseid"])){
+		getTeams();
+	}
 
 	function register_admin(){
 		$fullname  = $_REQUEST["fullname"];
@@ -97,7 +100,7 @@
 
 		if($result == 1){
 			//echo "Course Added Successfully";
-			header("Location: home.php");
+			header('Location: home.php');
 		}
 	}
 
@@ -107,7 +110,7 @@
 		$response = array();
 		$response["courses"] = array();
 		$lec_id = $_SESSION['id'];
-		$result = mysql_query("SELECT id, name, num_of_teams, semester, year, questions_set FROM courses WHERE lecturer_id = $lec_id");
+		$result = mysql_query("SELECT id, name, num_of_teams, semester, year, questionsset FROM courses WHERE lecturer_id = $lec_id");
 		while($row = mysql_fetch_array($result)){
 			$tmp = array();
 			$tmp["id"] = $row["id"];
@@ -115,9 +118,31 @@
 			$tmp["num_of_teams"] = $row["num_of_teams"];
 			$tmp["semester"] = $row["semester"];
 			$tmp["year"] = $row["year"];
-			$tmp["questions_set"] = $row["questions_set"];
+			$tmp["questionsset"] = $row["questionsset"];
 
 			array_push($response["courses"], $tmp);
+		}
+
+		header('Content-Type: application/json');
+
+		echo json_encode($response);
+	}
+
+	function getTeams(){
+		$db = new Dbconnect();
+
+		$response = array();
+		$response["teams"] = array();
+		$course_id = $_SESSION['courseid'];
+		$result = mysql_query("SELECT id, name, project_description, team_members FROM teams WHERE course_id = $course_id");
+		while($row = mysql_fetch_array($result)){
+			$tmp = array();
+			$tmp["id"] = $row["id"];
+			$tmp["name"] = $row["name"];
+			$tmp["project_description"] = $row["project_description"];
+			$tmp["team_members"] = $row["team_members"];
+
+			array_push($response["teams"], $tmp);
 		}
 
 		header('Content-Type: application/json');
@@ -175,7 +200,7 @@
 
 		$questions_array = json_encode($temp);
 
-		$query = "UPDATE courses SET questions='$questions_array' WHERE id = $course_id";
+		$query = "UPDATE courses SET questions='$questions_array', questionsset = 1  WHERE id = $course_id";
 		
 		$result = mysql_query($query) or die(mysql_error());
 		//echo $result;
